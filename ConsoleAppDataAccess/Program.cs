@@ -34,6 +34,7 @@ namespace ConsoleAppDataAccess
         //private readonly IUnitOfWork _uow;
         static void Main(string[] args)
         {
+            //TEST01
 
             CustomRepository TEST = new CustomRepository();
             var TEST2 = TEST.TestConnectWeb("3");
