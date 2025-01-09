@@ -35,6 +35,7 @@ namespace ConsoleAppDataAccess
         static void Main(string[] args)
         {
             //TEST01
+            //TEST02
 
             CustomRepository TEST = new CustomRepository();
             var TEST2 = TEST.TestConnectWeb("3");
