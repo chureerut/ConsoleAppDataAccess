@@ -40,23 +40,17 @@ namespace ConsoleAppDataAccess
             //TEST04
             //TEST05
 
+            designLog();
+
             CustomRepository TEST = new CustomRepository();
             var TEST2 = TEST.TestConnectWeb("3");
-
             //var tesrt = IUnitOfWork.Custom.TestConnectWeb("55");
-
-            log.Info("*********************************");
-            log.Info("************* BEGIN *************");
-            log.Info(AppDomain.CurrentDomain.FriendlyName);
             CommonUtils.SetCurrentCultureToEnUS();
             log.Info("Set CurrentThread to EN");
-
-
 
             string policyno = "11002-151-230511162";
             string mobileno = "0870541156";
             EffrenewfollowSmsAuto(policyno, mobileno);
-
 
             Class1 ob = new Class1();
             ob.sayHello();
@@ -449,8 +443,8 @@ namespace ConsoleAppDataAccess
 
             string[] alphabets = new[] { "A", "B", "C", "D", "E" };
 
-            string result = string.Join("then", alphabets);
-            Console.WriteLine(result);
+            string result2 = string.Join("then", alphabets);
+            Console.WriteLine(result2);
 
             string path = Path.Combine("C:", "Users", "John", "Documents");
 
@@ -606,8 +600,8 @@ namespace ConsoleAppDataAccess
 
             //            30.Path.GetFileName():
             //คืนชื่อไฟล์จากพาธเต็ม
-            string filePath = @"C:\Users\John\Documents\report.txt";
-            string fileName = Path.GetFileName(filePath); // "report.txt"
+            string filePath2 = @"C:\Users\John\Documents\report.txt";
+            string fileName2 = Path.GetFileName(filePath2); // "report.txt"
 
             //            31.Path.GetPathRoot():
             //คืนส่วนของพาธที่เป็นไดเรกทอรีราก เช่น "C:\"
@@ -726,10 +720,236 @@ namespace ConsoleAppDataAccess
 
         }
 
+        private static void designLog()
+        {
+            log.Info("*********************************");
+            log.Info("************* BEGIN *************");
+            log.Info(AppDomain.CurrentDomain.FriendlyName);
+            //Info: บันทึกเหตุการณ์สำคัญ
+            //แอปเริ่มต้นทำงาน
+            //ผู้ใช้เข้าสู่ระบบสำเร็จ
+            try
+            {
+                string strPR = "CSV";
+                log.Debug($"Debugging process started. Input value: {strPR}");
+                //Debug: ใช้ในระหว่างพัฒนา
+                //การตรวจสอบค่าที่ส่งเข้าในระหว่างการทดสอบ
+                //การแสดงข้อมูลระหว่างการเรียก API
+
+                var memoryUsage0 = 85;
+                if (memoryUsage0 > 80)
+                {
+                    log.Warn($"Memory usage is high. Current usage: {memoryUsage0} MB");
+                    //Warn: บันทึกเหตุการณ์ที่อาจมีปัญหา
+                    //การแจ้งเตือน Memory หรือ Disk ที่ใกล้เต็ม
+                    //การเรียกใช้ Service ภายนอกล่าช้ากว่าปกติ
+                }
+
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                //Error: บันทึกข้อผิดพลาดที่ส่งผลต่อการทำงาน
+                //การเชื่อมต่อฐานข้อมูลล้มเหลว
+                //Exception ระหว่างการประมวลผล
+                throw;
+            }
+
+            var userId = "Nong";
+            #region Info
+            //log.Info
+            //1. บันทึกการเริ่มต้นระบบ
+            //บันทึกเมื่อแอปพลิเคชันเริ่มต้นทำงาน เพื่อใช้ตรวจสอบช่วงเวลาที่แอปทำงาน
+            log.Info($"Application started at {DateTime.Now}");
+
+            //2. บันทึกเมื่อผู้ใช้เข้าสู่ระบบสำเร็จ
+            //ใช้บันทึกการเข้าสู่ระบบของผู้ใช้ เพื่อช่วยในการตรวจสอบกิจกรรมของระบบ
+            log.Info($"User {userId} logged in successfully at {DateTime.Now}.");
+
+            //3. บันทึกเหตุการณ์ที่สำคัญ
+            //ใช้บันทึกการส่งออกข้อมูลสำเร็จ พร้อมระบุชื่อไฟล์และขนาด
+            var fileName = "DataFile";
+            var fileSize = "3 MB";
+            log.Info($"Data export completed. File name: {fileName}, Size: {fileSize} MB.");
+
+            //4. บันทึกกิจกรรมในระบบ (Business Operation)
+            //ใช้บันทึกการดำเนินการสำคัญ เช่น การสั่งซื้อสำเร็จ
+            string orderId = "12453";
+            string totalAmount = "10,000";
+            log.Info($"Order ID {orderId} processed successfully for User ID {userId}. Total amount: {totalAmount} THB.");
+
+            //5. บันทึกการตั้งค่าหรือค่าคอนฟิก
+            //ใช้บันทึกค่าคอนฟิกของระบบ เพื่อช่วยในการวิเคราะห์หากมีปัญหาในภายหลัง
+            string environment = "UAT";
+            string appVersion = "9";
+            log.Info($"Configuration loaded. Environment: {environment}, Version: {appVersion}.");
+
+            //6.บันทึกกิจกรรมจาก API
+            //ใช้บันทึกการเรียก API เพื่อช่วยตรวจสอบกิจกรรมของผู้ใช้งาน
+            string apiName = "APIPAYMENT";
+            string parameters = "BACK";
+            log.Info($"API {apiName} called by User ID {userId}. Parameters: {parameters}.");
+
+            //คำแนะนำเพิ่มเติม
+            //Log สำหรับเหตุการณ์สำคัญเท่านั้น: ไม่ควรใช้ Log.Information ในสถานการณ์ที่ไม่สำคัญ เพื่อไม่ให้เกิด "Log Noise"
+            #endregion
+
+            #region Warn
+            //ตัวอย่างการใช้งาน
+            //1.แจ้งเตือน Memory Usage ที่สูง
+            //Memory ใกล้ถึงระดับที่อาจทำให้ระบบช้าหรือไม่เสถียร
+            var memoryUsage = 85; // ตัวอย่าง Memory Usage ใน %
+            if (memoryUsage > 80)
+            {
+                log.Warn($"Memory usage is high. Current usage: {memoryUsage}%");
+            }
+
+            //2.แจ้งเตือนการพยายามเข้าถึงไฟล์ที่ไม่มีอยู่
+            //ระบบพยายามเข้าถึงไฟล์แต่หาไม่เจอ
+            var filePath = "data.txt";
+            if (!File.Exists(filePath))
+            {
+                log.Warn($"File not found: {filePath}. Please check if the file exists.");
+            }
+            //3. แจ้งเตือนการใช้ API ที่ไม่รองรับ
+            //ผู้ใช้เรียก API รุ่นเก่าที่อาจไม่มีการสนับสนุนอีกต่อไป
+            var apiVersion = "v1";
+            if (apiVersion != "v2")
+            {
+                log.Warn($"Unsupported API version used: {apiVersion}. Recommend upgrading to v2.");
+            }
+
+            //4. แจ้งเตือนพฤติกรรมที่อาจผิดปกติ
+            //ผู้ใช้ใส่รหัสผิดหลายครั้ง อาจบ่งชี้ความพยายามโจมตี
+            var loginAttempts = 5;
+            if (loginAttempts > 3)
+            {
+                log.Warn($"Multiple login attempts detected: {loginAttempts} attempts for User ID {userId}.");
+            }
+
+            //5. แจ้งเตือน Disk Usage ใกล้เต็ม
+            //พื้นที่ในดิสก์ใกล้เต็ม อาจทำให้การบันทึกข้อมูลล้มเหลว
+            var diskUsage = 92; // ตัวอย่าง Disk Usage ใน %
+            if (diskUsage > 90)
+            {
+                log.Warn($"Disk usage is critically high: {diskUsage}%. Consider cleaning up space.");
+            }
+            //คำแนะนำเพิ่มเติม
+            //บริบทใน Log สำคัญมาก: เพิ่มข้อมูลเพิ่มเติม เช่น User ID, Request ID, หรือ Operation ID เพื่อช่วยในการวิเคราะห์
+            //ใช้เงื่อนไขเพื่อลด Noise: Log Warning เฉพาะเมื่อปัญหานั้นสำคัญจริง ๆ
+            #endregion
+
+            #region Debug
+            //ตัวอย่างการใช้งาน Log.Debug
+            //1. ตรวจสอบค่าพารามิเตอร์ที่ส่งเข้า
+            //ใช้บันทึกค่าเริ่มต้นของพารามิเตอร์ที่ส่งเข้าไปในฟังก์ชัน เพื่อดูว่าค่าที่ส่งมาถูกต้องหรือไม่
+            string inputValue = "input3";
+            log.Debug($"Starting process with input: {inputValue}");
+
+            //2. บันทึกค่าระหว่างการทำงาน
+            //ใช้บันทึกค่าระหว่างขั้นตอนการประมวลผลในโค้ด เช่น ค่าที่ได้จากการคำนวณ หรือค่าที่คืนกลับจากฟังก์ชันย่อย
+            string stepNumber = "012345";
+            string resultValue = "Success";
+            log.Debug($"Intermediate result at step {stepNumber}: {resultValue}");
+
+            //3. ติดตามการทำงานของโค้ด
+            //ใช้บันทึกการเรียกใช้เมธอด เพื่อช่วยติดตามลำดับการทำงาน
+            string ClassName = "SUB";
+            log.Debug($"Executing method {MethodBase.GetCurrentMethod()} in class {ClassName}");
+
+            //4. ตรวจสอบการเชื่อมต่อกับฐานข้อมูล
+            //ใช้บันทึกข้อมูลที่เกี่ยวข้องกับการตั้งค่าการเชื่อมต่อฐานข้อมูล เพื่อช่วยตรวจสอบปัญหาการเชื่อมต่อ
+            string connectionString = "LinkUAT";
+            log.Debug($"Attempting to connect to database with connection string: {connectionString}");
+
+            //5. ตรวจสอบการส่งข้อมูลไปยัง API
+            //ใช้บันทึกข้อมูลที่ส่งไปยัง API เพื่อช่วยวิเคราะห์ปัญหาที่เกี่ยวข้องกับการส่งหรือรับข้อมูล
+            log.Debug($"Sending API request to {"apiEndpoint"} with payload: {"payload"}");
+
+            //6. ตรวจสอบผลลัพธ์จากการเรียกฟังก์ชัน
+            //ใช้บันทึกผลลัพธ์ที่ได้จากฟังก์ชัน เพื่อช่วยตรวจสอบค่าที่ผิดปกติ
+            var result = "SomeFunction";
+            log.Debug($"Result from SomeFunction: {result}");
+
+            //คำแนะนำเพิ่มเติม
+            //ใช้ในสภาพแวดล้อมการพัฒนา(Development Only): ควรตั้งค่าระดับ Debug ในระบบ Production ให้แสดงผลเฉพาะเมื่อจำเป็นเท่านั้น
+            //บันทึกเฉพาะจุดสำคัญ: ควรโฟกัสไปที่ข้อมูลที่ช่วยในการวิเคราะห์ปัญหา เช่น พารามิเตอร์, ค่ากลาง, หรือผลลัพธ์ของฟังก์ชัน
+            //อย่าบันทึกข้อมูลที่มีความอ่อนไหว: เช่น รหัสผ่าน, Token, หรือข้อมูลส่วนบุคคลใน Log.Debug
+            #endregion
+
+            #region Error
+            //log.Error
+            //1. บันทึก Exception
+            //ใช้บันทึกข้อผิดพลาดที่เกิดขึ้นจาก Exception พร้อมกับข้อความที่อธิบายเหตุการณ์
+
+            try
+            {
+                // Simulate a process
+                throw new InvalidOperationException("Invalid operation encountered.");
+            }
+            catch (Exception ex)
+            {
+                log.Error($"{ex} An error occurred while processing the request.");
+            }
+            //2. บันทึกเมื่อการเชื่อมต่อฐานข้อมูลล้มเหลว
+            //ใช้บันทึกข้อมูลการเชื่อมต่อที่ล้มเหลว เช่น Connection String หรือ Database Name
+            try
+            {
+                // Simulate database connection
+                throw new Exception("Unable to connect to the database.");
+            }
+            catch (Exception ex)
+            {
+                log.Error($"{ex} Failed to connect to database. Connection string: {connectionString}");
+            }
+
+            //3. บันทึกข้อผิดพลาดจาก API
+            //ใช้บันทึกข้อผิดพลาดจากการเรียก API พร้อมกับ URL ที่เกี่ยวข้อง
+
+            try
+            {
+                // Simulate API call
+                throw new Exception("API response returned 500 Internal Server Error.");
+            }
+            catch (Exception ex)
+            {
+                log.Error($"{ex} Error occurred while calling API: {"https://www.google.co.uk/"}");
+            }
+            //4. บันทึกเมื่อการประมวลผลไฟล์ล้มเหลว
+            //ใช้บันทึกข้อผิดพลาดที่เกี่ยวข้องกับการจัดการไฟล์ เช่น ไฟล์ไม่พบ หรือไม่สามารถอ่านไฟล์ได้
+            try
+            {
+                // Simulate file processing
+                throw new Exception("File not found.");
+            }
+            catch (Exception ex)
+            {
+                log.Error($"{ex} Failed to process file: {fileName}");
+            }
+
+            //5. บันทึกข้อผิดพลาดที่เกี่ยวข้องกับการ Validate ข้อมูล
+            //ใช้บันทึกข้อผิดพลาดที่เกิดขึ้นจากการ Validate ข้อมูลของผู้ใช้
+            string userInput = "EN.01";
+            try
+            {
+                if (string.IsNullOrEmpty(userInput))
+                    throw new ArgumentException("User input cannot be empty.");
+            }
+            catch (Exception ex)
+            {
+                log.Error($"{ex} Validation error occurred for input: {userInput}");
+            }
+
+
+            #endregion
+
+            log.Info("*********************************");
+            log.Info("************* BEGIN *************");
+        }
         public static void EffrenewfollowSmsAuto(string policyno, string mobileno)
         {
             log.Info("***************************************");
-            log.Info("***** BEGIN EffrenewfollowSmsAuto *****");            
+            log.Info("***** BEGIN EffrenewfollowSmsAuto *****");
             log.Info(AppDomain.CurrentDomain.FriendlyName);
             log.Info(string.Format("parameter policyno : {0}, mobileno : {1} ", policyno, mobileno));
 
@@ -739,7 +959,7 @@ namespace ConsoleAppDataAccess
             var resultCheckPolicyNo = "";
             if (resultCheckPolicyNo.Count() > 0)
             {
-                log.Info(string.Format("Records found : {0}", resultCheckPolicyNo.Count()));                
+                log.Info(string.Format("Records found : {0}", resultCheckPolicyNo.Count()));
 
                 //Query SeqNoMax 
                 log.Info("Step 2 : Query SeqNoMax");
@@ -761,7 +981,7 @@ namespace ConsoleAppDataAccess
             else
             {
                 log.Info("No records found.");
-                log.Info(string.Format("Step 2 : Insert the PolicyNo {0} record into the table EffRenewFollow.", policyno));                
+                log.Info(string.Format("Step 2 : Insert the PolicyNo {0} record into the table EffRenewFollow.", policyno));
 
                 //insert
                 string resultInsert = "";
@@ -771,8 +991,6 @@ namespace ConsoleAppDataAccess
             log.Info("*****************************************************");
             log.Info("************* END EffrenewfollowSmsAuto *************");
         }
-       
-
 
         public class Animal
         {
