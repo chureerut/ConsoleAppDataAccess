@@ -39,6 +39,7 @@ namespace ConsoleAppDataAccess
             //TEST03
             //TEST04
             //TEST05
+            //TEST06
 
             designLog();
 
