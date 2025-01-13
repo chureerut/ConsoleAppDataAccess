@@ -40,6 +40,7 @@ namespace ConsoleAppDataAccess
             //TEST04
             //TEST05
             //TEST06
+            //TEST07
 
             designLog();
 
@@ -48,7 +49,6 @@ namespace ConsoleAppDataAccess
             //var tesrt = IUnitOfWork.Custom.TestConnectWeb("55");
             CommonUtils.SetCurrentCultureToEnUS();
             log.Info("Set CurrentThread to EN");
-
             string policyno = "11002-151-230511162";
             string mobileno = "0870541156";
             EffrenewfollowSmsAuto(policyno, mobileno);
