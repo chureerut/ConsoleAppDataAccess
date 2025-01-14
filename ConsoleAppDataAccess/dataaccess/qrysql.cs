@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
+﻿using System.Reflection;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace ConsoleAppDataAccess.dataaccess
 {
@@ -14,7 +9,7 @@ namespace ConsoleAppDataAccess.dataaccess
 
         public static string Insert_Name()
         {
-            string query = string.Format(@"","");
+            string query = string.Format(@"", "");
             query = Regex.Replace(query, @"[^0-9A-Za-zก-๙ ()/.,\-:'_@]", "");
             return query;
         }

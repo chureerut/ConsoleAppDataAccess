@@ -1,18 +1,12 @@
-﻿using ConsoleAppDataAccess.model;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Dynamic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace ConsoleAppDataAccess.dataaccess
-{    
+{
     public class mssql
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
@@ -76,8 +70,8 @@ namespace ConsoleAppDataAccess.dataaccess
                 log.Error($"Error: {ex.Message}");
                 return null;
             }
-            return dataTable;           
-        }        
+            return dataTable;
+        }
         public static T MSSQLExecuteScalar<T>(string query)
         {
             query = Regex.Replace(query, @"\s+", " ");
@@ -105,7 +99,7 @@ namespace ConsoleAppDataAccess.dataaccess
                                 throw;
                             }
                         }
-                        
+
                     }
                 }
             }
@@ -119,7 +113,7 @@ namespace ConsoleAppDataAccess.dataaccess
                 log.Error($"Error: {ex.Message}");
                 return default(T);
             }
-            
+
         }
         public static bool MSSQLExecuteNonQuery(string query)
         {
@@ -271,7 +265,7 @@ namespace ConsoleAppDataAccess.dataaccess
                 return false;
             }
         }
-               
+
     }
 
 

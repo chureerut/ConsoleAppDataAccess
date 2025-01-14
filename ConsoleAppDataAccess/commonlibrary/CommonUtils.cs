@@ -4,10 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace ConsoleAppDataAccess.commonlibrary
 {
@@ -19,7 +16,7 @@ namespace ConsoleAppDataAccess.commonlibrary
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
             Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
         }
-        
+
         // Convert string to int
         public static int? ConvertStringToInt(string value)
         {
@@ -100,7 +97,7 @@ namespace ConsoleAppDataAccess.commonlibrary
         {
             return value?.ToString() ?? nullValue;
         }
-                
+
         public static bool HasRow(DataTable dt)
         {
             if (dt != null && dt.Rows.Count > 0) return true;
@@ -167,7 +164,7 @@ namespace ConsoleAppDataAccess.commonlibrary
             return true;
         }
 
-      
+
         // Convert DataTable to List of dictionaries
         public static List<Dictionary<string, object>> ConvertDataTableToList(DataTable table)
         {
@@ -190,7 +187,7 @@ namespace ConsoleAppDataAccess.commonlibrary
 
             return result;
         }
-        
+
         private static string ConvertToThaiDate(string dateString)
         {
             // แปลงสตริงให้เป็น DateTime

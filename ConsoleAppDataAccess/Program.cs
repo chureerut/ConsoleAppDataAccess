@@ -1,30 +1,26 @@
-﻿using System;
-using ConsoleAppDataAccess.commonlibrary;
-using System.Reflection;
+﻿using ClassLibrary.Models;
+using ClassLibrary.Repository;
 using CommonLibrary;
+using CommonLibrary.Adapter;
+using CommonLibrary.Builder;
+using CommonLibrary.ConceptOOP;
+using CommonLibrary.Constructors;
 using CommonLibrary.Delegates;
+using CommonLibrary.Facade;
+using CommonLibrary.Factory;
+using CommonLibrary.Observer;
+using CommonLibrary.Singleton;
+using ConsoleAppDataAccess.commonlibrary;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Threading;
 using static CommonLibrary.Delegates.Delegate01;
 using static CommonLibrary.Delegates.Delegate02;
-using CommonLibrary.Constructors;
-using System.Collections;
-using System.Threading;
-using CommonLibrary.ConceptOOP;
-using System.Collections.Generic;
-using CommonLibrary.Factory;
-using ClassLibrary.Interfaces;
-using ClassLibrary.Models;
-using CommonLibrary.Observer;
-using CommonLibrary.Builder;
-using CommonLibrary.Singleton;
-using CommonLibrary.Adapter;
-using System.IO;
-using CommonLibrary.Facade;
-using CommonLibrary.Template;
-using ClassLibrary.Repository;
-using ClassLibrary.Properties;
-using System.Globalization;
-using System.Linq;
-using System.Data;
 
 namespace ConsoleAppDataAccess
 {
@@ -34,16 +30,23 @@ namespace ConsoleAppDataAccess
         //private readonly IUnitOfWork _uow;
         static void Main(string[] args)
         {
-            //TEST01
-            //TEST02
-            //TEST03
-            //TEST04
-            //TEST05
-            //TEST06
-            //TEST07
-            //TEST08
+            //TEST-V.01
+            //TEST-V.02
+            //TEST-V.03
+            //TEST-V.04
+            //TEST-V.05
+            //TEST-V.06
+            //TEST-V.08
+            //TEST-V.07
+            datatype();
+            OPERATORS();
+            usestring();
+            string str1 = "3";
+            string str2 = "3";
+            DesignString(str2, str1);
 
-            designLog();
+            string TEST20 = "";
+            string TEST19 = "";
 
             CustomRepository TEST = new CustomRepository();
             var TEST2 = TEST.TestConnectWeb("3");
@@ -53,8 +56,8 @@ namespace ConsoleAppDataAccess
             string policyno = "11002-151-230511162";
             string mobileno = "0870541156";
             EffrenewfollowSmsAuto(policyno, mobileno);
-
             Class1 ob = new Class1();
+
             ob.sayHello();
 
             #region Delegate
@@ -64,6 +67,7 @@ namespace ConsoleAppDataAccess
 
             _addnum(100, 40);
             _subnum(100, 60);
+
 
             Delegate02 delegate02 = new Delegate02();
             rectDelegate _rectDelegate = new rectDelegate(delegate02.area);
@@ -452,8 +456,187 @@ namespace ConsoleAppDataAccess
 
 
 
-            //            1.string.Empty:
-            //คืนค่าสตริงว่าง("") ใช้แทนการสร้างสตริงว่างด้วยเครื่องหมายคำพูด("")
+
+
+            #region การหารตัวเลขและจัดการข้อผิดพลาด
+            try
+            {
+                Console.Write("Enter the numerator: ");
+                int numerator = int.Parse(Console.ReadLine());
+
+                Console.Write("Enter the denominator: ");
+                int denominator = int.Parse(Console.ReadLine());
+
+                // การคำนวณที่อาจทำให้เกิดข้อผิดพลาด
+                int result3 = numerator / denominator;
+                Console.WriteLine($"Result: {result3}");
+            }
+            catch (DivideByZeroException ex)
+            {
+                Console.WriteLine("Error: Cannot divide by zero!");
+            }
+            catch (FormatException ex)
+            {
+                Console.WriteLine("Error: Please enter a valid number!");
+            }
+            finally
+            {
+                Console.WriteLine("End of calculation.");
+            }
+            #endregion
+
+            #region การจัดการไฟล์และข้อผิดพลาด
+            //try
+            //{
+            //    // พยายามอ่านไฟล์ที่ระบุ
+            //    string filePath0 = "test.txt";
+            //    string content = File.ReadAllText(filePath0);
+            //    Console.WriteLine(content);
+            //}
+            //catch (FileNotFoundException ex)
+            //{
+            //    // จัดการข้อผิดพลาดหากไฟล์ไม่พบ
+            //    Console.WriteLine("Error: File not found!");
+            //}
+            //catch (UnauthorizedAccessException ex)
+            //{
+            //    // จัดการข้อผิดพลาดหากไม่สามารถเข้าถึงไฟล์ได้
+            //    Console.WriteLine("Error: Access to the file is denied!");
+            //}
+            //finally
+            //{
+            //    // ทำงานเสมอ ไม่ว่าจะเกิดข้อผิดพลาดหรือไม่
+            //    Console.WriteLine("File reading operation finished.");
+            //}
+            #endregion
+
+            #region การโยนข้อผิดพลาดด้วย throw
+            try
+            {
+                CheckNumber(-5);  // จะทำให้เกิดข้อผิดพลาดที่เราโยนเอง
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            #endregion
+
+            ArrayList arr = new ArrayList();
+            string line = @"D|7303662                  |099956|001|80901109600000047628|234336|N|19062024|11:19:57|51|095697|0001000000|C|0000035000|14001-169-230165154 |14001-169-230165154 |2         |I         |B         |0000000002|PATipForU |01|000000|        |InsureW|0|20240619|11:19:57|3101500044443|นาย|สรชัช||ศรีลมูล||||26011978|-|Supalai Premier Asoke Condominium 1750/579 ชั้น 34 บางกะปิ ห้วยขวาง กรุงเทพมหานคร|บางกะปิ|ห้วยขวาง|กรุงเทพมหานคร|0829166665|||||ห้วยขวาง|กรุงเทพมหานคร|10310";
+            if (line.StartsWith("D|"))
+            {
+                string substringLine = line.Substring(2);
+                string modifiedString = substringLine.Replace("|", ",");
+                int colCountNum = modifiedString.ToString().Split(',').Count();
+                if (colCountNum == 49)
+                {
+                    modifiedString += ",";
+                }
+                arr.Add(modifiedString);
+                Console.WriteLine(modifiedString);
+            }
+
+            Dog test3 = new Dog();
+            test3.MakeSound();
+
+
+        }
+        private static void datatype()
+        {
+            //1. การใช้ int.Parse(), bool.Parse(), double.Parse(), float.Parse(), byte.Parse(), decimal.Parse()
+            //ฟังก์ชันเหล่านี้ใช้สำหรับการแปลง String ให้เป็น Value Type (เช่น int, bool, double เป็นต้น) แต่จะ Throw Exception หากการแปลงล้มเหลว (เช่นเมื่อรูปแบบข้อมูลไม่ถูกต้อง)
+            try
+            {
+                int number = int.Parse("123");       // แปลงสำเร็จ
+                double value = double.Parse("12.34"); // แปลงสำเร็จ
+                bool isValid = bool.Parse("true");   // แปลงสำเร็จ
+            }
+            catch (FormatException ex)
+            {
+                Console.WriteLine("Invalid format: " + ex.Message); // กรณีรูปแบบไม่ถูกต้อง
+            }
+            catch (OverflowException ex)
+            {
+                Console.WriteLine("Value too large or too small: " + ex.Message); // กรณีเกินค่าที่สามารถแปลงได้
+            }
+            //2. การใช้ collection.First(), collection.Single()
+            //First(): คืนค่ารายการแรกในคอลเลกชัน หากไม่มีรายการ จะ Throw Exception(InvalidOperationException)
+            //Single(): คืนค่ารายการเดียวในคอลเลกชัน หากมีมากกว่า 1 รายการ หรือไม่มีรายการเลย จะ Throw Exception
+
+            var numbers = new List<int> { 10, 20, 30 };
+
+            try
+            {
+                int firstNumber1 = numbers.First(); // คืนค่า 10
+                int singleNumber2 = numbers.Single(n => n == 20); // คืนค่า 20
+            }
+            catch (InvalidOperationException ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+
+            //การป้องกัน(Preventions)
+            //1.การใช้ int.TryParse(), bool.TryParse(), double.TryParse(), etc.
+            //ฟังก์ชัน TryParse ช่วยตรวจสอบความถูกต้องของค่าที่จะทำการแปลง โดยไม่เกิด Exception หากการแปลงล้มเหลว จะคืนค่า false และเซ็ตค่าผลลัพธ์เป็นค่าเริ่มต้น(default value)
+            if (int.TryParse("123", out int result))
+            {
+                Console.WriteLine("Converted value: " + result); // สำเร็จ
+            }
+            else
+            {
+                Console.WriteLine("Conversion failed.");
+            }
+
+            if (double.TryParse("abc", out double doubleResult))
+            {
+                Console.WriteLine("Converted value: " + doubleResult);
+            }
+            else
+            {
+                Console.WriteLine("Conversion failed."); // ไม่สำเร็จ
+            }
+            //2.การใช้ FirstOrDefault(), SingleOrDefault()
+            //FirstOrDefault(): คืนค่ารายการแรก หรือ default(ค่าเริ่มต้นของประเภทข้อมูล เช่น null สำหรับ reference types และ 0 สำหรับ value types) หากไม่มีรายการ
+            //SingleOrDefault(): คืนค่ารายการเดียว หรือ default หากไม่มีรายการ หรือหากมีมากกว่า 1 รายการ จะ Throw Exception
+            var numbers1 = new List<int> { 10, 20, 30 };
+
+            // FirstOrDefault
+            int firstNumber = numbers1.FirstOrDefault(); // คืนค่า 10
+            Console.WriteLine(firstNumber);
+
+            var emptyList = new List<int>();
+            int defaultNumber = emptyList.FirstOrDefault(); // คืนค่า 0
+            Console.WriteLine(defaultNumber);
+
+            // SingleOrDefault
+            int singleNumber = numbers1.SingleOrDefault(n => n == 20); // คืนค่า 20
+            Console.WriteLine(singleNumber);
+
+            int noMatch = numbers.SingleOrDefault(n => n == 50); // คืนค่า 0
+            Console.WriteLine(noMatch);
+
+        }
+        private static void OPERATORS()
+        {
+            //1.Implicit & Explicit conversions
+            //2.Convert class
+            //3. Implicit typing
+
+            int smallStorage = 3;
+            double bigStorage;
+            bigStorage = smallStorage; // Implicit conversion
+            smallStorage = (int)bigStorage; // Explicit conversion
+
+            string text;
+            text = Convert.ToString(bigStorage); // Convert class
+            text = Convert.ToString(smallStorage); // Convert class
+
+            var integerStorage = 3; // Implicit typing
+            var floatingStorage = 3.3; // Implicit typing
+        }
+        private static void usestring()
+        {  //            1.string.Empty:
+           //คืนค่าสตริงว่าง("") ใช้แทนการสร้างสตริงว่างด้วยเครื่องหมายคำพูด("")
             string emptyString = string.Empty; // สตริงว่าง
             Console.WriteLine(emptyString == ""); // True
 
@@ -638,91 +821,9 @@ namespace ConsoleAppDataAccess
             //var culture2 = CultureInfo.CreateSpecificCulture("en-US");
             //Thread.CurrentThread.CurrentCulture = culture2;
 
-            #region การหารตัวเลขและจัดการข้อผิดพลาด
-            try
-            {
-                Console.Write("Enter the numerator: ");
-                int numerator = int.Parse(Console.ReadLine());
-
-                Console.Write("Enter the denominator: ");
-                int denominator = int.Parse(Console.ReadLine());
-
-                // การคำนวณที่อาจทำให้เกิดข้อผิดพลาด
-                int result3 = numerator / denominator;
-                Console.WriteLine($"Result: {result3}");
-            }
-            catch (DivideByZeroException ex)
-            {
-                Console.WriteLine("Error: Cannot divide by zero!");
-            }
-            catch (FormatException ex)
-            {
-                Console.WriteLine("Error: Please enter a valid number!");
-            }
-            finally
-            {
-                Console.WriteLine("End of calculation.");
-            }
-            #endregion
-
-            #region การจัดการไฟล์และข้อผิดพลาด
-            //try
-            //{
-            //    // พยายามอ่านไฟล์ที่ระบุ
-            //    string filePath0 = "test.txt";
-            //    string content = File.ReadAllText(filePath0);
-            //    Console.WriteLine(content);
-            //}
-            //catch (FileNotFoundException ex)
-            //{
-            //    // จัดการข้อผิดพลาดหากไฟล์ไม่พบ
-            //    Console.WriteLine("Error: File not found!");
-            //}
-            //catch (UnauthorizedAccessException ex)
-            //{
-            //    // จัดการข้อผิดพลาดหากไม่สามารถเข้าถึงไฟล์ได้
-            //    Console.WriteLine("Error: Access to the file is denied!");
-            //}
-            //finally
-            //{
-            //    // ทำงานเสมอ ไม่ว่าจะเกิดข้อผิดพลาดหรือไม่
-            //    Console.WriteLine("File reading operation finished.");
-            //}
-            #endregion
-
-            #region การโยนข้อผิดพลาดด้วย throw
-            try
-            {
-                CheckNumber(-5);  // จะทำให้เกิดข้อผิดพลาดที่เราโยนเอง
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            #endregion
-
-            ArrayList arr = new ArrayList();
-            string line = @"D|7303662                  |099956|001|80901109600000047628|234336|N|19062024|11:19:57|51|095697|0001000000|C|0000035000|14001-169-230165154 |14001-169-230165154 |2         |I         |B         |0000000002|PATipForU |01|000000|        |InsureW|0|20240619|11:19:57|3101500044443|นาย|สรชัช||ศรีลมูล||||26011978|-|Supalai Premier Asoke Condominium 1750/579 ชั้น 34 บางกะปิ ห้วยขวาง กรุงเทพมหานคร|บางกะปิ|ห้วยขวาง|กรุงเทพมหานคร|0829166665|||||ห้วยขวาง|กรุงเทพมหานคร|10310";
-            if (line.StartsWith("D|"))
-            {
-                string substringLine = line.Substring(2);
-                string modifiedString = substringLine.Replace("|", ",");
-                int colCountNum = modifiedString.ToString().Split(',').Count();
-                if (colCountNum == 49)
-                {
-                    modifiedString += ",";
-                }
-                arr.Add(modifiedString);
-                Console.WriteLine(modifiedString);
-            }
-
-            Dog test3 = new Dog();
-            test3.MakeSound();
-
-
         }
 
-        private static void designLog()
+        private static void DesignString(string str2, string str1)
         {
             log.Info("*********************************");
             log.Info("************* BEGIN *************");

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CommonLibrary.Constructors
+﻿namespace CommonLibrary.Constructors
 {
     //Copy Constructor
     public class Constructor01
@@ -15,7 +9,7 @@ namespace CommonLibrary.Constructors
         private int year;
 
         // declaring Copy constructor
-        public Constructor01(Constructor01 s) 
+        public Constructor01(Constructor01 s)
         {
             month = s.month;
             year = s.year;

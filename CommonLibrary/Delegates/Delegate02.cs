@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CommonLibrary.Delegates
 {
     //Multicasting of a Delegate
     public class Delegate02
     {
-        public delegate void rectDelegate(double height,double width);
+        public delegate void rectDelegate(double height, double width);
 
         // "area" method
         public void area(double height, double width)

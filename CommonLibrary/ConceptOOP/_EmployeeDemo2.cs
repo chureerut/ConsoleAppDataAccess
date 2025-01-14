@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CommonLibrary.ConceptOOP
 {
@@ -56,7 +53,7 @@ namespace CommonLibrary.ConceptOOP
     }
 
     public class Manager : _EmployeeDemo2
-    {       
+    {
         public List<_EmployeeDemo2> TeamMembers = new List<_EmployeeDemo2>();
         public void AddTeamMember(_EmployeeDemo2 employee)
         {

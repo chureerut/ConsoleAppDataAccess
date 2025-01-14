@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using IBM.Data.Informix;
+using System;
 using System.Configuration;
 using System.Data;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using IBM.Data.Informix;
 
 namespace ConsoleAppDataAccess.dataaccess
-{    
+{
     public class informix
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);

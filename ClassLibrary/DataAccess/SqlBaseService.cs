@@ -5,15 +5,11 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace ClassLibrary.DataAccess
 {
-    
+
     public class SqlBaseService
     {
         private LoggerUtils log = new LoggerUtils(MethodBase.GetCurrentMethod().DeclaringType);
@@ -21,10 +17,11 @@ namespace ClassLibrary.DataAccess
 
         public string ConnectionString
         {
-            get {
+            get
+            {
                 return ConfigurationManager.AppSettings["ConnStrSql"];
             }
-        
+
         }
         private List<SqlParameter> baseParamList = new List<SqlParameter>();
         public SqlBaseService AddCriteria(string keyName, object value)
@@ -109,7 +106,7 @@ namespace ClassLibrary.DataAccess
         public List<T> MSSQLExecuteScalar<T>(string query)
         {
             object result = new object();
-            return (result != null && result != DBNull.Value) ? (List<T>)Convert.ChangeType(result, typeof(T)) : default(List<T>);           
+            return (result != null && result != DBNull.Value) ? (List<T>)Convert.ChangeType(result, typeof(T)) : default(List<T>);
 
         }
     }
