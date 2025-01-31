@@ -16,7 +16,7 @@ namespace ConsoleAppDataAccess.dataaccess
 
         public static string Query_Name()
         {
-            string query = string.Format(@"select Insurename,Suminsure from GSB_outstandingdebt");
+            string query = string.Format(@"select Invoicno,Insurename,Suminsure,Totalpremium from GSB_outstandingdebt");
             return query;
         }
 

@@ -166,4 +166,43 @@ ClassLibrary.BusinessLogic.Services
 ClassLibrary.Models
 
 
+------------------------LOGIN---------------------------------
+Flow การทำงาน Cookies และ Session ในระบบ Login
+ผู้ใช้เข้าสู่หน้า Login
+
+ผู้ใช้ป้อนข้อมูล username และ password แล้วกดปุ่ม Login
+เบราว์เซอร์ส่ง HTTP Request ไปยังเซิร์ฟเวอร์
+
+Request มีข้อมูล Login (username และ password) ในส่วน Body ของ HTTP POST
+เซิร์ฟเวอร์ตรวจสอบข้อมูลในฐานข้อมูล
+
+เซิร์ฟเวอร์ตรวจสอบว่า username และ password ตรงกับข้อมูลในฐานข้อมูลหรือไม่
+หากการยืนยันสำเร็จ
+
+เซิร์ฟเวอร์สร้าง Session บันทึกสถานะของผู้ใช้ (เช่น User ID, สิทธิ์การเข้าถึง, ชื่อผู้ใช้) ลงใน Session Store (เช่น In-Memory Database อย่าง Redis)
+สร้าง Session ID ที่ไม่ซ้ำ และส่งคืนให้ผู้ใช้ในรูปของ Cookies
+ส่ง Response กลับไปที่เบราว์เซอร์
+
+Response มี Header ที่กำหนด Cookies (เช่น Set-Cookie: session_id=<Session-ID>; HttpOnly; Secure)
+ผู้ใช้ร้องขอข้อมูลหรือหน้าใหม่ (Request อื่น)
+
+เบราว์เซอร์ส่ง HTTP Request พร้อม Cookies (ที่มี Session ID) กลับไปที่เซิร์ฟเวอร์
+เซิร์ฟเวอร์ตรวจสอบ Session ID
+
+เซิร์ฟเวอร์ตรวจสอบว่า Session ID ที่ส่งมานั้นถูกต้องหรือไม่ใน Session Store
+หากตรง จะโหลดข้อมูลสถานะของผู้ใช้ที่เก็บไว้ใน Session
+ส่งข้อมูลหรือแสดงหน้าที่ร้องขอให้ผู้ใช้
+
+หากการตรวจสอบสำเร็จ เซิร์ฟเวอร์จะส่ง Response พร้อมข้อมูลที่ร้องขอกลับไป
+หากล้มเหลว (Session หมดอายุหรือไม่ตรง) จะส่งข้อความแจ้งเตือน เช่น "กรุณา Login อีกครั้ง"
+
+[ผู้ใช้] --> [เบราว์เซอร์] : กรอก username/password
+[เบราว์เซอร์] --> [เซิร์ฟเวอร์] : ส่ง HTTP POST พร้อมข้อมูล Login
+[เซิร์ฟเวอร์] --> [ฐานข้อมูล] : ตรวจสอบ username/password
+[ฐานข้อมูล] --> [เซิร์ฟเวอร์] : ยืนยันข้อมูล
+[เซิร์ฟเวอร์] --> [Session Store] : สร้าง Session และเก็บข้อมูล
+[เซิร์ฟเวอร์] --> [เบราว์เซอร์] : ส่ง Response พร้อม Cookies (Session ID)
+[เบราว์เซอร์] --> [เซิร์ฟเวอร์] : Request ใหม่พร้อม Cookies (Session ID)
+[เซิร์ฟเวอร์] --> [Session Store] : ตรวจสอบ Session ID
+[เซิร์ฟเวอร์] --> [เบราว์เซอร์] : ส่งข้อมูลหรือหน้าให้ผู้ใช้
 

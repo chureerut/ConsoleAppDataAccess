@@ -86,6 +86,7 @@
     <Compile Include="dataaccess\mssql.cs" />
     <Compile Include="dataaccess\qrysql.cs" />
     <Compile Include="model\GSBOutstandingdebt.cs" />
+    <Compile Include="model\tpqtcauseiar.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

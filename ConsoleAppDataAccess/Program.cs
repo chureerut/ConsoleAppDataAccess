@@ -11,6 +11,8 @@ using CommonLibrary.Factory;
 using CommonLibrary.Observer;
 using CommonLibrary.Singleton;
 using ConsoleAppDataAccess.commonlibrary;
+using ConsoleAppDataAccess.dataaccess;
+using ConsoleAppDataAccess.model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -30,14 +32,14 @@ namespace ConsoleAppDataAccess
         //private readonly IUnitOfWork _uow;
         static void Main(string[] args)
         {
-            //TEST-V.01
-            //TEST-V.02
-            //TEST-V.03
-            //TEST-V.04
-            //TEST-V.05
-            //TEST-V.06
-            //TEST-V.08
-            //TEST-V.07
+            List<GSBOutstandingdebt> testtest = mssql.ConverTable<GSBOutstandingdebt>(qrysql.Query_Name()).ToList();
+            var suminsure = testtest.Where(p => p.Suminsure == "1,135,920.00").ToList();          
+
+            foreach (var item in suminsure)
+            {
+                Console.WriteLine(item.Invoicno);
+            }        
+           
             datatype();
             OPERATORS();
             usestring();
@@ -55,19 +57,16 @@ namespace ConsoleAppDataAccess
             log.Info("Set CurrentThread to EN");
             string policyno = "11002-151-230511162";
             string mobileno = "0870541156";
-            EffrenewfollowSmsAuto(policyno, mobileno);
+            EffrenewfollowSmsAuto(mobileno, policyno);
             Class1 ob = new Class1();
 
             ob.sayHello();
-
             #region Delegate
             Delegate01 delegate01 = new Delegate01();
             addnum _addnum = new addnum(delegate01.sum);
             subnum _subnum = new subnum(delegate01.subtract);
-
             _addnum(100, 40);
             _subnum(100, 60);
-
 
             Delegate02 delegate02 = new Delegate02();
             rectDelegate _rectDelegate = new rectDelegate(delegate02.area);
@@ -1049,7 +1048,7 @@ namespace ConsoleAppDataAccess
             log.Info("*********************************");
             log.Info("************* BEGIN *************");
         }
-        public static void EffrenewfollowSmsAuto(string policyno, string mobileno)
+        public static void EffrenewfollowSmsAuto(string mobileno, string policyno)
         {
             log.Info("***************************************");
             log.Info("***** BEGIN EffrenewfollowSmsAuto *****");
@@ -1147,6 +1146,7 @@ namespace ConsoleAppDataAccess
 
         public static void Factory()
         {
+           
             Barista _Obj = new Barista();
 
             //สั่งกาแฟ

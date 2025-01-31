@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -264,6 +265,145 @@ namespace ConsoleAppDataAccess.dataaccess
                 log.Error($"Error: {ex.Message}");
                 return false;
             }
+        }
+
+
+        public static DataTable MSSQLExecuteReader2(string query)
+        {
+            query = Regex.Replace(query, @"\s+", " ");
+            log.Debug(query);
+            DataTable dataTable = new DataTable();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connSql))
+                {
+                    conn.Open();
+                    using (SqlTransaction trans = conn.BeginTransaction(IsolationLevel.ReadUncommitted))
+                    {
+                        try
+                        {
+                            using (SqlCommand cmd = new SqlCommand(query, conn, trans))
+                            {
+                                cmd.CommandTimeout = 5000;
+
+                                using (SqlDataReader reader = cmd.ExecuteReader())
+                                {
+                                    if (reader.HasRows)
+                                    {
+                                        dataTable.Load(reader);
+                                    }
+                                }
+                            }
+                            trans.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            log.Error($"Transaction Error: {ex.Message}");
+
+                            // Attempt to rollback the transaction
+                            try
+                            {
+                                trans.Rollback();
+                                log.Info("Transaction rolled back.");
+                            }
+                            catch (Exception rollbackEx)
+                            {
+                                log.Error($"Rollback Error: {rollbackEx.Message}");
+                            }
+
+                            throw;
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                log.Error($"SQL Error: {ex.Message}");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                log.Error($"Error: {ex.Message}");
+                return null;
+            }
+            return dataTable;
+        }
+        public static List<T> ConverTable<T>(string query) where T : new()
+        {
+            List<T> list = new List<T>();
+            query = Regex.Replace(query, @"\s+", " ");
+            log.Debug(query);
+            DataTable dataTable = new DataTable();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connSql))
+                {
+                    conn.Open();
+                    using (SqlTransaction trans = conn.BeginTransaction(IsolationLevel.ReadUncommitted))
+                    {
+                        try
+                        {
+                            using (SqlCommand cmd = new SqlCommand(query, conn, trans))
+                            {
+                                cmd.CommandTimeout = 5000;
+
+                                using (SqlDataReader reader = cmd.ExecuteReader())
+                                {
+                                    if (reader.HasRows)
+                                    {
+                                        dataTable.Load(reader);
+                                        foreach (DataRow row in dataTable.Rows)
+                                        {
+                                            T obj = new T();
+
+                                            foreach (DataColumn column in dataTable.Columns)
+                                            {
+                                                PropertyInfo prop = typeof(T).GetProperty(column.ColumnName);
+                                                if (prop != null && row[column] != DBNull.Value)
+                                                {
+                                                    prop.SetValue(obj, Convert.ChangeType(row[column], prop.PropertyType), null);
+                                                }
+                                            }
+                                            list.Add(obj);
+                                        }
+                                        
+                                    }
+                                }
+                            }
+                            trans.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            log.Error($"Transaction Error: {ex.Message}");
+
+                            // Attempt to rollback the transaction
+                            try
+                            {
+                                trans.Rollback();
+                                log.Info("Transaction rolled back.");
+                            }
+                            catch (Exception rollbackEx)
+                            {
+                                log.Error($"Rollback Error: {rollbackEx.Message}");
+                            }
+
+                            throw;
+                        }
+                    }
+                }
+            }            
+            catch (Exception ex)
+            {
+                log.Error($"Error: {ex.Message}");
+                return null;
+            }
+
+            return list;
+        }
+        public class person
+        {
+            public string Id { get; set; }
+            public string FullName { get; set; }
         }
 
     }
